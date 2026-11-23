@@ -1,60 +1,60 @@
-# QR Code Generator with Logo
+# QR Code Creator
 
-Generate QR codes with a centered logo and optional rounded corners via a simple CLI.
+**Branded QR codes from the command line.** Generate a QR code with your logo in the centre and optional rounded corners.
 
-## Prerequisites
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
+![Python](https://img.shields.io/badge/Python-3.8%2B-3776AB?style=flat-square&logo=python&logoColor=white)
+![qrcode + Pillow](https://img.shields.io/badge/qrcode-Pillow-555?style=flat-square)
 
-- Python 3.8+
-- Inkscape **or** ImageMagick (optional) — only needed when using SVG logos
+<img src="docs/example.png" alt="Example QR code with a centred logo" width="260">
 
-## Setup
+## Features
 
-Create a virtual environment (recommended) and install dependencies:
+- Interactive CLI: paste a URL, pick a logo, choose a corner radius.
+- Picks up every logo in `images/` (PNG, JPG, WebP, SVG, ...).
+- High error correction, so the logo can cover up to ~30% of the code and it still scans.
+- Optional rounded corners for the whole image.
+
+## Install
 
 ```bash
 python -m venv .venv
-.\.venv\Scripts\activate  # Windows
-# source .venv/bin/activate  # macOS/Linux
+source .venv/bin/activate        # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
+SVG logos need Inkscape **or** ImageMagick installed; otherwise convert them to PNG first.
+
 ## Usage
 
-1) Add your logo images (PNG, JPG, SVG, WebP, etc.) to the `images/` folder.  
-2) Run the generator:
+1. Put your logo files in `images/` (git-ignored).
+2. Run the generator and answer the prompts:
 
 ```bash
 python qr_with_logo.py
 ```
 
-3) Follow the prompts:
-   - Enter the URL to encode
-   - Pick a logo by number (or choose “No logo” for a plain QR)
-   - Enter border radius (0 for square corners, ~20–50 for rounded)
-
-### Output
-
-- A QR image is saved in the project root (named from the URL).  
-- If you include an SVG logo, make sure Inkscape or ImageMagick is installed; otherwise, convert it to PNG first.
-
-## Features
-
-- Interactive CLI flow
-- Auto-detects logos in `images/`
-- Configurable rounded corners
-- High error correction (logo can cover ~30% of the QR)
-
-## Project structure
-
 ```
-qr-code-creator/
-├─ images/           # Place your logos here (gitignored)
-├─ qr_with_logo.py   # Main script
-├─ requirements.txt  # Dependencies
-└─ README.md
+Enter the URL to encode: https://example.com
+Select a logo by number (or choose 'No logo'): 1
+Enter border radius (0 for square corners): 30
+```
+
+The PNG is saved in the project root, named after the URL.
+
+### As a library
+
+```python
+from qr_with_logo import generate_qr_with_logo
+
+generate_qr_with_logo("https://example.com", "images/logo.png", "out.png", border_radius=30)
 ```
 
 ## Tips
 
-- Keep logos high-contrast for best scan reliability.
-- If the QR scans poorly, try reducing the logo size or using a smaller border radius.
+- High-contrast logos scan most reliably.
+- If a code scans poorly, lower `logo_scale` (default 0.2) or the corner radius.
+
+## License
+
+[MIT](LICENSE)
