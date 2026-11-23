@@ -23,3 +23,6 @@ Thumbs.db
 *.bmp
 *.webp
 *.svg
+
+# README preview image
+!docs/*.png
