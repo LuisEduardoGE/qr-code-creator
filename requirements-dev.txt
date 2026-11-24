@@ -1,0 +1,4 @@
+-r requirements.txt
+pytest==9.2.0
+ruff==0.17.6
+zxing-cpp==3.2.0  # QR decoder for the tests (small wheel, no system libraries)

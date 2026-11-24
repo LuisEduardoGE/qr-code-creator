@@ -8,7 +8,6 @@ Generates QR codes with or without a logo. Place your logo images in the
 import os
 import subprocess
 import sys
-from io import BytesIO
 
 import qrcode
 from PIL import Image, ImageDraw
@@ -22,7 +21,6 @@ def convert_svg_to_image(svg_path: str) -> Image.Image:
     # Try Inkscape first (most reliable)
     inkscape_path = shutil.which("inkscape")
     if inkscape_path:
-        png_data = BytesIO()
         temp_png = svg_path.replace(".svg", "_temp.png")
         try:
             subprocess.run(
@@ -250,7 +248,7 @@ def main():
     safe_name = "".join(c if c.isalnum() else "_" for c in url[:30])
     output_path = f"qr_{safe_name}.png"
     
-    print(f"\n⏳ Generating QR code...")
+    print("\n⏳ Generating QR code...")
     print(f"   URL: {url}")
     print(f"   Logo: {selected_logo if selected_logo else 'None'}")
     print(f"   Border radius: {border_radius}px")
